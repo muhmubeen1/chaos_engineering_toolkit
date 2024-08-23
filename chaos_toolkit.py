@@ -29,3 +29,19 @@ def simulate_network_latency(self, delay_ms, duration_sec):
     subprocess.call(command, shell=True)
     
     self.log("Network latency simulation ended.")
+def kill_service(self, service_name):
+    """Simulate a service crash by killing the process."""
+    self.log(f"Killing service: {service_name}")
+    
+    # Stop the service
+    command = f"sudo systemctl stop {service_name}"
+    subprocess.call(command, shell=True)
+    
+    # Simulate downtime
+    time.sleep(5)
+    
+    # Restart the service
+    command = f"sudo systemctl start {service_name}"
+    subprocess.call(command, shell=True)
+    
+    self.log(f"Service {service_name} restarted.")
