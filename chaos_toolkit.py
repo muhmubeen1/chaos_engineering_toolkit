@@ -45,3 +45,13 @@ def kill_service(self, service_name):
     subprocess.call(command, shell=True)
     
     self.log(f"Service {service_name} restarted.")
+    
+def stress_cpu(self, duration_sec, load_percent=100):
+        """Simulate CPU resource exhaustion by stressing the CPU."""
+        self.log(f"Stressing CPU for {duration_sec} seconds with {load_percent}% load.")
+        
+        # Use stress-ng to stress the CPU
+        command = f"stress-ng --cpu 1 --cpu-load {load_percent} --timeout {duration_sec}s"
+        subprocess.call(command, shell=True)
+        
+        self.log("CPU stress simulation ended.")
