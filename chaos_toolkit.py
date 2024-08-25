@@ -55,3 +55,12 @@ def stress_cpu(self, duration_sec, load_percent=100):
         subprocess.call(command, shell=True)
         
         self.log("CPU stress simulation ended.")
+def saturate_disk_io(self, duration_sec):
+        """Simulate heavy disk I/O by repeatedly writing and deleting a file."""
+        self.log(f"Saturating Disk I/O for {duration_sec} seconds.")
+        end_time = time.time() + duration_sec
+        while time.time() < end_time:
+            with open('temp_io_test_file', 'wb') as f:
+                f.write(os.urandom(10**6))  # Write 1MB of random data
+            os.remove('temp_io_test_file')
+        self.log("Disk I/O saturation simulation ended.")
