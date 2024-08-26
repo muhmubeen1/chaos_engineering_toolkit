@@ -64,3 +64,16 @@ def saturate_disk_io(self, duration_sec):
                 f.write(os.urandom(10**6))  # Write 1MB of random data
             os.remove('temp_io_test_file')
         self.log("Disk I/O saturation simulation ended.")
+def simulate_dns_failure(self, domain, duration_sec):
+        """Simulate DNS failure by modifying the /etc/hosts file."""
+        self.log(f"Simulating DNS failure for {domain} for {duration_sec} seconds.")
+        with open('/etc/hosts', 'a') as f:
+            f.write(f"127.0.0.1 {domain}\n")
+        time.sleep(duration_sec)
+        with open('/etc/hosts', 'r') as f:
+            lines = f.readlines()
+        with open('/etc/hosts', 'w') as f:
+            for line in lines:
+                if domain not in line:
+                    f.write(line)
+        self.log(f"DNS failure simulation for {domain} ended.")
