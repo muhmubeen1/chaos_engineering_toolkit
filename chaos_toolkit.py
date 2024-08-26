@@ -77,3 +77,11 @@ def simulate_dns_failure(self, domain, duration_sec):
                 if domain not in line:
                     f.write(line)
         self.log(f"DNS failure simulation for {domain} ended.")
+        
+def disconnect_database(self, db_service_name, duration_sec):
+        """Temporarily disconnect a database service."""
+        self.log(f"Disconnecting database service: {db_service_name} for {duration_sec} seconds.")
+        os.system(f"sudo systemctl stop {db_service_name}")
+        time.sleep(duration_sec)
+        os.system(f"sudo systemctl start {db_service_name}")
+        self.log(f"Database service {db_service_name} reconnected.")
